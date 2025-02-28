@@ -6,6 +6,7 @@ public class SimpleOrderSystem
   public static final int ADD_ORDER = 2;
   public static final int ADD_PRODUCT = 3;
   public static final int LIST_CUSTOMERS = 4;
+  public static final int OVERALL_TOTAL = 5;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
@@ -38,6 +39,7 @@ public class SimpleOrderSystem
     System.out.println(ADD_ORDER + ". Add Order");
     System.out.println(ADD_PRODUCT + ". Add Product");
     System.out.println(LIST_CUSTOMERS + ". List Customers");
+    System.out.println(OVERALL_TOTAL + ". Display the Total Value of All Orders for All Customers");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -57,6 +59,9 @@ public class SimpleOrderSystem
          break;
       case LIST_CUSTOMERS:
         listCustomers();
+        break;
+      case OVERALL_TOTAL:
+        overallTotal();
         break;
       default:
         System.out.println("Invalid option - try again");
@@ -228,9 +233,46 @@ public class SimpleOrderSystem
     }
   }
 
+  public void overallTotal()
+  {
+    int total = 0;
+    for (Customer customer : customers) {
+      total += customer.getTotalForAllOrders();
+    }
+    System.out.println("Overall total: " + "$" + total);
+  }
+
+  public void addData()
+  {
+    Customer damla = new Customer("Damla", "Bortucen", "London", "123456", "db@gmail.com");
+    Customer alina = new Customer("Alina", "Casal", "Barcelona", "78910", "ac@gmail.com");
+    customers.add(damla);
+    customers.add(alina);
+
+    Product book = new Product(1, "book", 25);
+    Product pen = new Product(2, "pen", 1);
+    Product paper = new Product(3, "paper", 5);
+    products.add(book);
+    products.add(pen);
+    products.add(paper);
+
+    Order ord1 = new Order();
+    LineItem li1 = new LineItem(5, book);
+    ord1.add(li1);
+    damla.addOrder(ord1);
+
+    Order ord2 = new Order();
+    LineItem li2_1 = new LineItem(10, pen);
+    LineItem li2_2 = new LineItem(5, paper);
+    ord2.add(li2_1);
+    ord2.add(li2_2);
+    alina.addOrder(ord2);
+  }
+
   public static void main(String[] args)
   {
     SimpleOrderSystem orderSystem = new SimpleOrderSystem();
+    orderSystem.addData();
     orderSystem.run();
   }
 }
