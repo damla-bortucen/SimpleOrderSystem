@@ -85,11 +85,13 @@ public class SimpleOrderSystem
     String lastName = in.nextLine();
     System.out.println("Enter address:");
     String address = in.nextLine();
+    System.out.println("Enter postcode:");
+    String postcode = in.nextLine();
     System.out.println("Enter phone number:");
     String phone = in.nextLine();
     System.out.println("Enter email address:");
     String email = in.nextLine();
-    Customer customer = new Customer(firstName,lastName,address,phone,email);
+    Customer customer = new Customer(firstName,lastName,address,postcode,phone,email);
     customers.add(customer);
   }
 
@@ -226,6 +228,7 @@ public class SimpleOrderSystem
                                   + ", "
                                   + customer.getFirstName());
       System.out.println("Address: " + customer.getAddress());
+      System.out.println("Postcode: " + customer.getPostcode());
       System.out.println("Phone: " + customer.getPhone());
       System.out.println("Email: " + customer.getEmail());
       System.out.println("Orders made: " + customer.getOrders().size());
@@ -244,8 +247,8 @@ public class SimpleOrderSystem
 
   public void addData()
   {
-    Customer damla = new Customer("Damla", "Bortucen", "London", "123456", "db@gmail.com");
-    Customer alina = new Customer("Alina", "Casal", "Barcelona", "78910", "ac@gmail.com");
+    Customer damla = new Customer("Damla", "Bortucen", "London", "WA1C", "123456", "db@gmail.com");
+    Customer alina = new Customer("Alina", "Casal", "Barcelona", "08008", "78910", "ac@gmail.com");
     customers.add(damla);
     customers.add(alina);
 
