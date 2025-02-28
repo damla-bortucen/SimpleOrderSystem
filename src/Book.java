@@ -14,6 +14,6 @@ public class Book extends Product{
     @Override
     public String getDescription()
     {
-        return "Title: " + title + ", Author: " + author + ", Pages: " + pages;
+        return "Book. Title: " + title + ", Author: " + author + ", Pages: " + pages;
     }
 }

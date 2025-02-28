@@ -7,6 +7,7 @@ public class SimpleOrderSystem
   public static final int ADD_PRODUCT = 3;
   public static final int LIST_CUSTOMERS = 4;
   public static final int OVERALL_TOTAL = 5;
+  public static final int PRODUCT_ORDERS = 6;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
@@ -40,6 +41,7 @@ public class SimpleOrderSystem
     System.out.println(ADD_PRODUCT + ". Add Product");
     System.out.println(LIST_CUSTOMERS + ". List Customers");
     System.out.println(OVERALL_TOTAL + ". Display the Total Value of All Orders for All Customers");
+    System.out.println(PRODUCT_ORDERS + ". Display all Orders of a Product");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -62,6 +64,9 @@ public class SimpleOrderSystem
         break;
       case OVERALL_TOTAL:
         overallTotal();
+        break;
+      case PRODUCT_ORDERS:
+        listProductOrders();
         break;
       default:
         System.out.println("Invalid option - try again");
@@ -267,6 +272,29 @@ public class SimpleOrderSystem
     }
     System.out.println("Overall total: " + "$" + total);
   }
+
+
+  public void listProductOrders()
+  {
+    System.out.print("Enter the code for the product whose orders you would like to see: ");
+    int code = in.nextInt();
+    int ordNo = 1;
+
+    for (Customer c : customers) {
+      for (Order o : c.getOrders()) {
+        for (LineItem l : o.getLineItems()) {
+          if (l.getProduct().getCode() == code) {
+            System.out.println("The order no. " + ordNo + " of the product with the code "+ code +": ");
+            System.out.println("Customer: " + c.getFirstName() + " " + c.getLastName());
+            System.out.println("Product Description: " + l.getProduct().getDescription());
+            System.out.println("Amount of Product: " + l.getQuantity());
+            ordNo += 1;
+          }
+        }
+      }
+    }
+  }
+
 
   public void addData()
   {

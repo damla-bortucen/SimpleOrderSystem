@@ -10,6 +10,6 @@ public class Pen extends Product{
     @Override
     public String getDescription()
     {
-        return "Color: " + color;
+        return "Pen. Color: " + color;
     }
 }

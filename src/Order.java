@@ -28,4 +28,9 @@ public class Order
     }
     return total;
   }
+
+  public ArrayList<LineItem> getLineItems()
+  {
+    return lineItems;
+  }
 }
