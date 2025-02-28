@@ -187,6 +187,11 @@ public class SimpleOrderSystem
 
   private void addProduct()
   {
+    System.out.println("Product types: ");
+    System.out.println("1. Book");
+    System.out.println("2. Pen");
+    System.out.print("Choose product type:");
+    int choice = in.nextInt();
     System.out.print("Enter product code: ");
     int code = in.nextInt();
     in.nextLine();
@@ -194,12 +199,30 @@ public class SimpleOrderSystem
     {
       return;
     }
-    System.out.print("Enter product description: ");
-    String description = in.nextLine();
     System.out.print("Enter product price: ");
     int price = in.nextInt();
     in.nextLine();
-    Product product = new Product(code,description,price);
+
+    Product product;
+
+    switch (choice)
+    {
+      case 1: // book
+        System.out.print("Enter title: ");
+        String title = in.nextLine();
+        System.out.print("Enter author: ");
+        String author = in.nextLine();
+        System.out.print("Enter page number: ");
+        int pages = in.nextInt();
+        product = new Book(code, price, title, author, pages);
+        break;
+      case 2: // pen
+        System.out.print("Enter color: ");
+        String color = in.nextLine();
+        product = new Pen(code, price, color);
+      default:
+        return;
+    }
     products.add(product);
   }
 
@@ -252,12 +275,10 @@ public class SimpleOrderSystem
     customers.add(damla);
     customers.add(alina);
 
-    Product book = new Product(1, "book", 25);
-    Product pen = new Product(2, "pen", 1);
-    Product paper = new Product(3, "paper", 5);
+    Product book = new Book(1, 25, "To kill a mockingbird", "Harper Lee", 323);
+    Product pen = new Pen(2, 1, "blue");
     products.add(book);
     products.add(pen);
-    products.add(paper);
 
     Order ord1 = new Order();
     LineItem li1 = new LineItem(5, book);
@@ -265,10 +286,8 @@ public class SimpleOrderSystem
     damla.addOrder(ord1);
 
     Order ord2 = new Order();
-    LineItem li2_1 = new LineItem(10, pen);
-    LineItem li2_2 = new LineItem(5, paper);
-    ord2.add(li2_1);
-    ord2.add(li2_2);
+    LineItem li2 = new LineItem(10, pen);
+    ord2.add(li2);
     alina.addOrder(ord2);
   }
 
