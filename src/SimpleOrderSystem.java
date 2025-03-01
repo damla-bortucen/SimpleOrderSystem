@@ -8,6 +8,7 @@ public class SimpleOrderSystem
   public static final int LIST_CUSTOMERS = 4;
   public static final int OVERALL_TOTAL = 5;
   public static final int PRODUCT_ORDERS = 6;
+  public static final int CUSTOMER_ORDERS = 7;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
@@ -42,6 +43,7 @@ public class SimpleOrderSystem
     System.out.println(LIST_CUSTOMERS + ". List Customers");
     System.out.println(OVERALL_TOTAL + ". Display the Total Value of All Orders for All Customers");
     System.out.println(PRODUCT_ORDERS + ". Display all Orders of a Product");
+    System.out.println(CUSTOMER_ORDERS + ". Display all Orders made by a Customer");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -67,6 +69,9 @@ public class SimpleOrderSystem
         break;
       case PRODUCT_ORDERS:
         listProductOrders();
+        break;
+      case CUSTOMER_ORDERS:
+        listCustomerOrders();
         break;
       default:
         System.out.println("Invalid option - try again");
@@ -291,6 +296,30 @@ public class SimpleOrderSystem
             ordNo += 1;
           }
         }
+      }
+    }
+  }
+
+  public void listCustomerOrders()
+  {
+    System.out.println("Here are all the customers in the system: ");
+    for (int i=0; i < customers.size();i++)
+    {
+      System.out.println(i + ". Name: " + customers.get(i).getLastName() + ", " + customers.get(i).getFirstName());
+    }
+    System.out.print("Enter the number of the customer whose orders you would like to see: ");
+    int custNum = in.nextInt();
+    if (custNum >= customers.size()) {
+      System.out.println("Number doesn't correspond to a customer");
+      return;
+    }
+    Customer customer = customers.get(custNum);
+    System.out.println("Orders of " + customer.getFirstName() + " " + customer.getLastName() + ":");
+    for (Order o: customer.getOrders()) {
+      for (LineItem l : o.getLineItems()) {
+        System.out.println("Product Code: " + l.getProduct().getCode()
+                + ", Amount: " + l.getQuantity()
+                + ", Product Description: " + l.getProduct().getDescription());
       }
     }
   }
